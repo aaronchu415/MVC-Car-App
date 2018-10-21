@@ -1,7 +1,7 @@
 import java.util.Comparator;
 
-public abstract class Vehicle {
 
+public abstract class Vehicle {
     private String vinNum;
     private VehicleMakes make;
     private String model;
@@ -10,18 +10,16 @@ public abstract class Vehicle {
 
     public Vehicle(String vinNum, VehicleMakes make, String model, String owner, int numOfDoors) {
 
-        this.vinNum = vinNum;
+        this.setVinNum(vinNum);
         this.make = make;
         this.model = model;
-        this.owner = owner;
-        this.numOfDoors = numOfDoors;
+        this.setOwner(owner);
+        this.setNumOfDoors(numOfDoors);
     }
 
     //one methods
 
-    public void HonkHorn() {
-        System.out.println("Honk Honk!");
-    }
+    public String HonkHorn() { return "Honk Honk!"; }
 
     //Getters
 
@@ -49,7 +47,11 @@ public abstract class Vehicle {
 
 
     public void setVinNum(String vinNum) {
-        this.vinNum = vinNum;
+    	if (vinNum.matches("[a-zA-Z0-9]*") == false || vinNum.isEmpty()) {
+    		throw new IllegalArgumentException();
+        } else {
+        	this.vinNum = vinNum;
+        }
     }
 
     public void setMake(VehicleMakes make) {
@@ -61,15 +63,19 @@ public abstract class Vehicle {
     }
 
     public void setOwner(String owner) {
-        this.owner = owner;
+    	if (owner.matches("[a-zA-Z\\s]*") == false || owner.isEmpty()) {
+    		throw new IllegalArgumentException();
+    	} else {
+    		this.owner = owner;
+    	}
     }
 
 
     public void setNumOfDoors(int numOfDoors) {
 
         //doors need to be positive num
-        if (numOfDoors < 0) {
-            throw new IllegalArgumentException("Needs to be greater then zero");
+        if (numOfDoors < 2 || numOfDoors > 6) {
+            throw new IllegalArgumentException();
         } else {
             this.numOfDoors = numOfDoors;
         }
@@ -105,5 +111,4 @@ public abstract class Vehicle {
         }
 
     }
-
 }

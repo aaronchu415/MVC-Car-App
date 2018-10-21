@@ -7,7 +7,7 @@ public class CarDatabase {
 
     public CarDatabase() {
 
-        listOfCars = new ArrayList<Vehicle>();
+        listOfCars = new ArrayList<>();
 
     }
 
@@ -45,11 +45,18 @@ public class CarDatabase {
     }
 
 
+    // wenhao modified this method, so that the format of the output will look nicer.
     @Override
     public String toString() {
-        return "CarDatabase{" +
-                ", \n \n VehicleList=" + listOfCars.toString() +
-                '}';
+        StringBuilder str = new StringBuilder();
+        for(int i = 1; i <= listOfCars.size(); i++){
+            Vehicle car = listOfCars.get(i-1);
+            str.append(i + ": "+ "Owner " + car.getOwner()
+                       + " , " + "Car Vin " + car.getVinNum()
+                       + " , " + "Car Make " + car.getMake().toString()
+                       + " , " + "Car doors " + car.getNumOfDoors() + "\n");
+        }
+        return str.toString();
     }
 
 }

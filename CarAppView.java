@@ -1,4 +1,3 @@
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -7,7 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 
 import javafx.scene.control.*;
-
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
@@ -36,7 +35,7 @@ public class CarAppView {
     private Text headingOneText, headingTwoText;
 
 
-    //Input fields for paramaters to create car
+    //Input fields for parameters to create car
     private TextField CarVinInputField;
     private Label CarVinInputLabel;
     private static final String CAR_VIN_INPUT_FIELD_PROMPT_TEXT = "Vin Number";
@@ -116,14 +115,14 @@ public class CarAppView {
         // --------------Vin Input box ------------------- //
         CarVinInputField = new TextField();
         CarVinInputField.setPromptText("Please Enter: " + CAR_VIN_INPUT_FIELD_PROMPT_TEXT);
-        CarVinInputField.setPrefWidth(WIDTH*.25);
+        CarVinInputField.setPrefWidth(WIDTH * .25);
 
         CarVinInputLabel = new Label(CAR_VIN_INPUT_FIELD_PROMPT_TEXT);
-        CarVinInputLabel.setPrefWidth(WIDTH*.15);
+        CarVinInputLabel.setPrefWidth(WIDTH * .15);
         CarVinInputLabel.setTextFill(Color.WHITE);
 
 
-        HBox vinBox = new HBox(CarVinInputLabel,CarVinInputField);
+        HBox vinBox = new HBox(CarVinInputLabel, CarVinInputField);
         vinBox.setPrefWidth(WIDTH);
         vinBox.setAlignment(Pos.CENTER);
         vinBox.setSpacing(5);
@@ -131,13 +130,13 @@ public class CarAppView {
         // -------------- Owner Input box ------------------- //
         CarOwnerNameInputField = new TextField();
         CarOwnerNameInputField.setPromptText("Please Enter: " + CAR_OWNER_NAME_INPUT_PROMPT_TEXT);
-        CarOwnerNameInputField.setPrefWidth(WIDTH*.25);
+        CarOwnerNameInputField.setPrefWidth(WIDTH * .25);
 
         CarOwnerNameLabel = new Label(CAR_OWNER_NAME_INPUT_PROMPT_TEXT);
-        CarOwnerNameLabel.setPrefWidth(WIDTH*.15);
+        CarOwnerNameLabel.setPrefWidth(WIDTH * .15);
         CarOwnerNameLabel.setTextFill(Color.WHITE);
 
-        HBox ownerBox = new HBox(CarOwnerNameLabel,CarOwnerNameInputField);
+        HBox ownerBox = new HBox(CarOwnerNameLabel, CarOwnerNameInputField);
         ownerBox.setPrefWidth(WIDTH);
         ownerBox.setAlignment(Pos.CENTER);
         ownerBox.setSpacing(5);
@@ -145,36 +144,33 @@ public class CarAppView {
 
         // -------------- Model Input box ------------------- //
         CarModelInputLabel = new Label(CAR_MODEL_INPUT_PROMPT_TEXT);
-        CarModelInputLabel.setPrefWidth(WIDTH*.15);
+        CarModelInputLabel.setPrefWidth(WIDTH * .15);
         CarModelInputLabel.setTextFill(Color.WHITE);
 
         ObservableList<VehicleMakes> statusOptions = FXCollections.observableArrayList((Arrays.asList(VehicleMakes.values())));
         makeComboBox = new ComboBox<VehicleMakes>(statusOptions);
         makeComboBox.setValue(VehicleMakes.TOYOTA);
-        makeComboBox.setPrefWidth(WIDTH*.25);
+        makeComboBox.setPrefWidth(WIDTH * .25);
 
-        HBox modelBox = new HBox(CarModelInputLabel,makeComboBox);
+        HBox modelBox = new HBox(CarModelInputLabel, makeComboBox);
         modelBox.setPrefWidth(WIDTH);
         modelBox.setAlignment(Pos.CENTER);
         modelBox.setSpacing(5);
 
 
-
-
         // -------------- Door Input box ------------------- //
         CarDoorsInputField = new TextField();
         CarDoorsInputField.setPromptText("Please Enter: " + CAR_DOOR_INPUT_PROMPT_TEXT);
-        CarDoorsInputField.setPrefWidth(WIDTH*.25);
+        CarDoorsInputField.setPrefWidth(WIDTH * .25);
 
         CarDoorInputLabel = new Label(CAR_DOOR_INPUT_PROMPT_TEXT);
-        CarDoorInputLabel.setPrefWidth(WIDTH*.15);
+        CarDoorInputLabel.setPrefWidth(WIDTH * .15);
         CarDoorInputLabel.setTextFill(Color.WHITE);
 
-        HBox doorBox = new HBox(CarDoorInputLabel,CarDoorsInputField);
+        HBox doorBox = new HBox(CarDoorInputLabel, CarDoorsInputField);
         doorBox.setPrefWidth(WIDTH);
         doorBox.setAlignment(Pos.CENTER);
         doorBox.setSpacing(5);
-
 
 
         //adding all the input parameter boxes into a vbox
@@ -204,7 +200,7 @@ public class CarAppView {
 
 
         //adding all the buttons into an hbox
-        HBox buttonBox = new HBox(addButton,printAllCarInfoButton,removeAllCarButton, honkCarButton);
+        HBox buttonBox = new HBox(addButton, printAllCarInfoButton, removeAllCarButton, honkCarButton);
         buttonBox.setAlignment(Pos.CENTER);
         buttonBox.setMinWidth(WIDTH);
         buttonBox.setSpacing(20);
@@ -220,15 +216,14 @@ public class CarAppView {
 
         ////////////////BodyThreeBox//////////////////////////////////
 
-        outputTextArea = new TextArea();
-        outputTextArea.setMaxWidth(WIDTH*.95);
+        outputTextArea = new TextArea("");
+        outputTextArea.setMaxWidth(WIDTH * .95);
 
         VBox bodyThreeBox = new VBox(outputTextArea);
 
         bodyThreeBox.setMaxWidth(WIDTH);
         bodyThreeBox.setAlignment(Pos.CENTER);
         bodyThreeBox.setSpacing(5);
-
 
 
         //adding the heading, and three body into the primaryBox
@@ -250,12 +245,18 @@ public class CarAppView {
 
     //process button actions (handler function is sent from controller class)
 
+    public void setMakeComboBoxOnAction(EventHandler<ActionEvent> handler){
+        makeComboBox.setOnAction(handler);
+    }
+
     public void setAddCarButtonAction(EventHandler<ActionEvent> handler) {
         addButton.setOnAction(handler);
     }
+
     public void setPrintAllCarInfoButtonAction(EventHandler<ActionEvent> handler) {
         printAllCarInfoButton.setOnAction(handler);
     }
+
     public void setRemoveAllCarButtonAction(EventHandler<ActionEvent> handler) {
         removeAllCarButton.setOnAction(handler);
     }
@@ -281,7 +282,6 @@ public class CarAppView {
     }
 
 
-
     //getters for car parameters to pass to car class
 
     public String getCarVin() {
@@ -300,7 +300,19 @@ public class CarAppView {
         return makeComboBox.getValue();
     }
 
-
-
+    public void setTextAreaText(String s){
+        outputTextArea.setText(s);
+    }
+    
+    public void showError(String errorMessage) {
+    	Alert alert = new Alert(AlertType.INFORMATION);
+    	alert.setTitle("Input Error");
+    	alert.setHeaderText(null);
+    	alert.setContentText(errorMessage);
+    	alert.showAndWait();
+    }
 
 }
+
+
+

@@ -1,5 +1,4 @@
 public enum VehicleMakes {
-
     TOYOTA("Public"),
     FORD("Public"),
     BMW("Public"),
